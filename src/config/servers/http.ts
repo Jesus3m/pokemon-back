@@ -24,7 +24,7 @@ export const intiHttpServer = (): Application => {
     })
 
     // Static Routes
-    const serviceUrl = config.API.SERVICE_URL || `${ config.API.PROTOCOL }://${ config.API.HOSTNAME }:${ config.API.PORT }/api`
+    const serviceUrl = config.API.SERVICE_URL || `${ config.API.PROTOCOL }://${ config.API.HOSTNAME }/api`
     app.use('/api/public', express.static('public'))
 
     // Swagger documentation

@@ -5,7 +5,6 @@ export class MongoConnection {
 
     static connect (companyUri?: string) {
         const connectionUri = `mongodb+srv://${ config.MONGODB.USER ? `${ config.MONGODB.USER }:${ config.MONGODB.PASS }@` : '' }${ config.MONGODB.HOST }`
-        console.log(connectionUri)
         if (!MongoConnection.connection) {
             const db = mongoose.createConnection(companyUri! || connectionUri, {
                 socketTimeoutMS: 22000,
