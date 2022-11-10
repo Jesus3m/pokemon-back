@@ -19,7 +19,7 @@ export const intiHttpServer = (): Application => {
     // Set a context into each request
     const contextMiddleware = withContext(request => {
         return {
-            tenant: request.get('origin')?.split('.')[0] || request.hostname.split('.')[0]
+            tenant: (request.get('origin')?.split('.')[0] || request.hostname.split('.')[0]) || 'pokedb'
         }
     })
 

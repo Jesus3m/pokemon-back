@@ -4,14 +4,14 @@ export class MongoConnection {
     static connection: Connection
 
     static connect (companyUri?: string) {
-        const connectionUri = `mongodb://${ config.MONGODB.USER ? `${ config.MONGODB.USER }:${ config.MONGODB.PASS }@` : '' }${ config.MONGODB.HOST }`
+        const connectionUri = `mongodb+srv://${ config.MONGODB.USER ? `${ config.MONGODB.USER }:${ config.MONGODB.PASS }@` : '' }${ config.MONGODB.HOST }`
+        console.log(connectionUri)
         if (!MongoConnection.connection) {
             const db = mongoose.createConnection(companyUri! || connectionUri, {
-                socketTimeoutMS: 30000,
+                socketTimeoutMS: 22000,
                 keepAlive: true,
                 maxPoolSize: 10
             })
-
             MongoConnection.connection = db
         }
         return MongoConnection.connection
