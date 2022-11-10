@@ -6,8 +6,8 @@
   "scripts": {
     "swagger": "tsoa spec",
     "docs": "npm run swagger",
-    "start": "cross-env NODE_ENV=production node ./dist/index.js",
     "build": "tsc -b",
+    "start": "npm run build && cross-env NODE_ENV=production node ./dist/index.js",
     "dev": "nodemon --legacy-watch ./src/index.ts"
   },
   "keywords": [],
