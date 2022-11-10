@@ -22,4 +22,9 @@ router.get('/user', async (req: Request, res: Response) => {
     const data = await authController.getUser(req.query.token as string)
     new Responser(data, data ? 200 : 404).send(res)
 })
+router.get('/refresh', async (req: Request, res: Response) => {
+    const authController = new AuthController(new AuthService(req.context))
+    const data = await authController.refresh(req.query.token as string)
+    new Responser(data, data ? 200 : 404).send(res)
+})
 export default router

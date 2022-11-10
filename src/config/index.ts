@@ -9,6 +9,7 @@ export const config = {
 
     },
     MONGODB: {
+        PROTOCOL: process.env.MONGODB_PROTOCOl || 'mongodb+srv',
         HOST: process.env.MONGODB_HOST,
         PORT: process.env.MONGODB_PORT,
         USER: process.env.MONGODB_USER,

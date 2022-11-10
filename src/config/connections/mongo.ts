@@ -4,7 +4,7 @@ export class MongoConnection {
     static connection: Connection
 
     static connect (companyUri?: string) {
-        const connectionUri = `mongodb+srv://${ config.MONGODB.USER ? `${ config.MONGODB.USER }:${ config.MONGODB.PASS }@` : '' }${ config.MONGODB.HOST }`
+        const connectionUri = `${ config.MONGODB.PROTOCOL }://${ config.MONGODB.USER ? `${ config.MONGODB.USER }:${ config.MONGODB.PASS }@` : '' }${ config.MONGODB.HOST }`
         if (!MongoConnection.connection) {
             const db = mongoose.createConnection(companyUri! || connectionUri, {
                 socketTimeoutMS: 22000,

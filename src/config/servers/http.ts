@@ -18,13 +18,15 @@ export const intiHttpServer = (): Application => {
 
     // Set a context into each request
     const contextMiddleware = withContext(request => {
+        const tenant = (request.get('origin')?.split('.')[0] || request.hostname.split('.')[0]) || 'pokedb'
+        console.log(tenant)
         return {
             tenant: (request.get('origin')?.split('.')[0] || request.hostname.split('.')[0]) || 'pokedb'
         }
     })
 
     // Static Routes
-    const serviceUrl = config.API.SERVICE_URL || `${ config.API.PROTOCOL }://${ config.API.HOSTNAME }/api`
+    const serviceUrl = config.API.SERVICE_URL || `${ config.API.PROTOCOL }://${ config.API.HOSTNAME }:4000/api`
     app.use('/api/public', express.static('public'))
 
     // Swagger documentation

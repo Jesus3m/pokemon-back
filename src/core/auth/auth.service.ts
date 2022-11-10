@@ -1,13 +1,12 @@
 import { HttpError } from '@common/errors/Base'
 import { ContextType } from '@common/types/context.types'
 import { AuthMongoDatasource } from '@source/data/auth.mongo.ds'
-import { AuthEntity, SignInType, UserEntity } from './auth.entity'
-import { getUserByEmail, getUserByToken } from './usecases/getUser'
-import { User } from './User'
 import { compare, genSalt, hash } from 'bcryptjs'
+import { AuthEntity, SignInType, UserEntity } from './auth.entity'
 import { generateUserCredentials } from './usecases/createUserCredentials'
-import { verify } from 'jsonwebtoken'
-import { config } from '@config/index'
+import { getUserByEmail, getUserByToken } from './usecases/getUser'
+import { verifyToken } from './usecases/verifyToken'
+import { User } from './User'
 
 export class AuthService {
     constructor (private context: ContextType) {}
@@ -48,7 +47,6 @@ export class AuthService {
 
         // Encrypt password
         newUser.password = await hash(newUser.password!, await genSalt(10))
-
         // Save
         newUser.save(repository)
         return newUser.get()
@@ -57,11 +55,7 @@ export class AuthService {
     async getUser (token: string): Promise<UserEntity> {
         const repository = new AuthMongoDatasource(this.context.tenant)
 
-        try {
-            await verify(token, config.JWT.secret)
-        } catch (error) {
-            throw new HttpError('Token expired or not valid', 403)
-        }
+        await verifyToken(token)
 
         const userFound = await getUserByToken(repository)(token)
         if (!userFound) {
@@ -73,11 +67,7 @@ export class AuthService {
     async refreshToken (token: string) {
         const repository = new AuthMongoDatasource(this.context.tenant)
 
-        try {
-            await verify(token, config.JWT.secret)
-        } catch (error) {
-            throw new HttpError('Token expired or not valid', 403)
-        }
+        await verifyToken(token)
 
         const userFound = await getUserByToken(repository)(token)
         if (!userFound) {
@@ -89,14 +79,6 @@ export class AuthService {
         userFound.token = tokens.refreshToken
         userFound.save(repository)
 
-        return userFound.get()
-    }
-
-    rememberPassword () {
-
-    }
-
-    recoveryPassword () {
-
+        return tokens
     }
 }

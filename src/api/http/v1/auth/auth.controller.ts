@@ -26,4 +26,10 @@ export class AuthController {
         const data = await this.service.getUser(token)
         return data
     }
+
+    @Get('refresh')
+    async refresh (@Query('') token : string): Promise<AuthEntity> {
+        const data = await this.service.refreshToken(token)
+        return data
+    }
 }
