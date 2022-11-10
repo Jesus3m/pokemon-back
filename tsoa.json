@@ -1,0 +1,12 @@
+{
+    "entryFile": "src/index.ts",
+    "noImplicitAdditionalProperties": "silently-remove-extras",
+    "spec": {
+      "basePath": "/api/v1",
+      "outputDirectory": "public",
+      "specVersion": 3
+    },
+    "routes": {
+      "basePath": "/api/v1"
+    }
+  }
