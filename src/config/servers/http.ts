@@ -11,7 +11,7 @@ export const intiHttpServer = (): Application => {
 
     // Middlewares
     app.use(express.json())
-    app.use(morgan('dev'))
+    // app.use(morgan('dev'))
     app.use(cors({
         origin: '*'
     }))
@@ -19,7 +19,7 @@ export const intiHttpServer = (): Application => {
     // Set a context into each request
     const contextMiddleware = withContext(request => {
         const tenant = (request.get('origin')?.split('.')[0] || request.hostname.split('.')[0]) || 'pokedb'
-        console.log(tenant)
+        console.log(tenant, true)
         return {
             tenant: (request.get('origin')?.split('.')[0] || request.hostname.split('.')[0]) || 'pokedb'
         }
