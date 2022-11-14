@@ -21,7 +21,7 @@ export class AuthService {
 
         // Compare passwords
         const isValidLogin = await compare(user.pass, userFound.password!)
-
+        console.log(isValidLogin)
         if (!isValidLogin) {
             throw new HttpError('user cant be logged', 403)
         }
