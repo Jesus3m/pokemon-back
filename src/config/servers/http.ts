@@ -6,7 +6,6 @@ import { config } from '@config/index'
 import { withContext } from '@common/middlewares/contextMiddleware'
 import { ErrorMiddleware } from '@common/middlewares/errorMiddleware'
 import morgan from 'morgan'
-import { withAuth } from '@common/middlewares/authMiddelware'
 export const intiHttpServer = (): Application => {
     const app = express()
 
@@ -19,9 +18,8 @@ export const intiHttpServer = (): Application => {
 
     // Set a context into each request
     const contextMiddleware = withContext(request => {
-        const tenant = (request.get('origin')?.split('.')[0] || request.hostname.split('.')[0])
         return {
-            tenant: 'empiretive'
+            tenant: 'rocketfy'
         }
     })
 
