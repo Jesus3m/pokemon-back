@@ -18,7 +18,10 @@ export const config = {
     },
     JWT: {
         secret: process.env.JWT_SECRET || 'somesecret',
-        expireAuth: process.env.EXPIRE_AUTH_TOKEN || 3600,
+        expireAuth: process.env.EXPIRE_AUTH_TOKEN || '1h',
         expireRefresh: process.env.EXPIRE_REFRESH_TOKEN || 86400
+    },
+    POKEAPI: {
+        URL: process.env.POKE_API_URL
     }
 }
