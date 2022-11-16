@@ -80,6 +80,50 @@
 				],
 				"type": "object",
 				"additionalProperties": false
+			},
+			"PokemonEntity": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"_id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"nickname": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"team": {
+						"type": "string"
+					},
+					"lastConnection": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"token": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"lastName",
+					"nickname",
+					"email",
+					"team"
+				],
+				"type": "object",
+				"additionalProperties": false
 			}
 		},
 		"securitySchemes": {}
@@ -200,6 +244,73 @@
 					{
 						"in": "query",
 						"name": "token",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/pokemon": {
+			"get": {
+				"operationId": "GetAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/PokemonEntity"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "query",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/pokemon/{id}": {
+			"get": {
+				"operationId": "GetBy",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PokemonEntity"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "query",
 						"required": true,
 						"schema": {
 							"type": "string"

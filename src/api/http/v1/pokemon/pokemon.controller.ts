@@ -1,6 +1,6 @@
 import { Get, Query, Route, Path } from 'tsoa'
-import { PokemonService } from '@core/pokemon/pokemon.service'
-import { PokemonEntity } from '@core/pokemon/pokemon.entity'
+import { PokemonService } from '../../../../core/pokemon/pokemon.service'
+import { PokemonEntity } from '../../../../core/pokemon/pokemon.entity'
 
 @Route('pokemon')
 export class PokemonController {
